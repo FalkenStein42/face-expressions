@@ -1,3 +1,28 @@
+'''
+Render module
+
+The purpose of this module is to aid with the rendering of the frames, masks and other recuring elements used on the other scripts
+
+KNOWN BUGS:
+-renderVideo() may sometimes render a black video or nothing at all [may have to do with color flag?]
+-trusting the user too much
+
+TODO:
+-migrate and contour rendering process to renderContours() from contours.py
+-generalize renderVideo() to admit other formats besides .avi
+-provide proper documentation to functions
+
+AUTHOR & LICENSE DETAILS:
+
+[Author]   Sergio Solé
+[Email]    sergio.sole99@gmail.com
+[Discord]  Steve from Customer Service#6001
+
+License details can be found on license file of this repo at https://github.com/FalkenStein42/face-expressions
+
+
+'''
+
 import cv2 as cv
 import numpy as np
 import os
@@ -7,7 +32,7 @@ from python_settings import settings as s
 
 def renderFrames(frame_o,BLUR,HSV,THRESH=1):
     '''
-    !Docstring
+    !Docstring!
     Function takes as input the original frame [frame_o] and a list of parameters for rendering
     each sub-frame [BLUR,HSV] and a flag for wether to aply a threshold to the end result [THRESH]
     
@@ -67,10 +92,4 @@ def renderVideo(settings_file = 'default_settings',output_file = 'output.avi'):
     out.release()
 
 def renderContours(output_file = 'output_contours.avi'):
-    
-
-
-
-    
-
-    
+    pass

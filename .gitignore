@@ -1,7 +1,16 @@
-#
-#
+#Ths is the gitignore file
+#Ignore rule help can be found on man pages:
+#	git help ignore
+
+#Personal & Test files
 
 /expresions.mp4
 /expresions.cfg
 /expresions.py
 /marker_guide-Vid1.png
+/output.avi
+
+#Temporary & Runtime files
+__pycache__/
+
+#Other files

@@ -11,6 +11,6 @@
 /output.avi
 
 #Temporary & Runtime files
-__pycache__/
+__*/
 
 #Other files

@@ -8,7 +8,6 @@ KNOWN BUGS:
 -trusting the user too much
 
 TODO:
--migrate and contour rendering process to renderContours() from contours.py
 -generalize renderVideo() to admit other formats besides .avi
 -provide proper documentation to functions
 
@@ -92,61 +91,9 @@ def renderVideo(settings_file = 'default_settings',output_file = 'output.avi'):
     cam.release()
     out.release()
 
-    
-##CONTOURS
-def renderContours(output_file = 'output_contours.avi'):
-    pass
 
 
-def filterByArea(contours,minArea):
-    cnt = []
-    for cont in contours:
-        if cv.contourArea(cont)>minArea:
-            cnt.append(cont)
-    return cnt
 
-
-def findCenter(contours):
-    centers = np.int16([[0,0]])
-    # loop over the contours
-    for c in contours:
-            # compute the center of the contour
-        M = cv.moments(c)
-        cX = int(M["m10"] / M["m00"])
-        cY = int(M["m01"] / M["m00"])
-        centers = np.append(centers,[[cX,cY]],axis=0)
-    #delete initializer element
-    return np.delete(centers,0,axis=0)
-
-##LINES
-
-def joinClosest(frame, points, connections = 2):
-    pass
- 
-            
-def findClosest(points, point, nhood=5):
-    points = points-point #Shift origin to target
-    points = np.delete(points, \
-              np.where(np.all(np.equal(points,np.array([[0,0]])),axis=1)),\
-              axis=0) #Delete itself from the list (now transformed to [0,0]) if it exists
-
-    #if nhood>0: #Apply limited search radius if specified
-    #    points = points[np.all(points<=nhood)]
-    norm = np.linalg.norm(points,axis=1) #Make the vector norm array
-    
-    return (points[np.where(norm == np.amin(norm))] + point) #Return elements wich correspond with the index of the ...
-                                                             # lowest norm, re-normalized to global coordinates
-    
-
-
-    
-
-
-def compareDistance(pa,pb):
-    '''
-    Returns closest point to origin
-    '''
-    return min(math.sqrt(math.pow(pa[0],2)+math.pow(pa[1],2)), math.sqrt(math.pow(pb[0],2)+math.pow(pb[1],2)))
 
 
 

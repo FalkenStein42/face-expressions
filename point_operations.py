@@ -22,11 +22,8 @@ License details can be found on license file of this repo at https://github.com/
 
 '''
 
-import cv2 as cv
 import numpy as np
-import math
-import os
-from python_settings import settings as s
+
 
 def joinClosest(frame, points, connections = 2):
     pass
@@ -40,9 +37,43 @@ def findClosest(points, point):
 
     norm = np.linalg.norm(points,axis=1) #Make the vector norm array
     
-    return (points[np.where(norm == np.amin(norm))] + point) #Return elements wich correspond with the index of the ...
+    return (points[np.where(norm == np.amin(norm))] + point) #Return elements wich correspond with the index of the
                                                              # lowest norm, re-normalized to global coordinates
     
 def findCentralPoint(points):
-    pass
-    
+    '''
+    Implementation of the trimed algorithm for computing medioid of a collection of points
+    '''
+    low_bound = np.zeros(len(points))
+    low_energy = 10**5
+    #points.shuffle()
+    for i in range(len(points)):
+        if (low_bound[i]<low_energy):
+            
+            #Compute all distances to current point
+            distance = np.array([])
+            for j in range(len(points)):
+                distance = np.append(distance,[np.linalg.norm(points[j]-points[i])])
+                
+            #Make energy of point its new bound
+            low_bound[i] = (1/(len(points)-1)) * np.sum(distance)
+            
+            #If its lower than bound, make best candidate
+            if (low_bound[i]<low_energy):
+                best_i = i
+                low_energy = low_bound[i]
+            #Recalculate Bounds
+            for j in range(len(points)):
+                low_bound[j] = max(low_bound[j],abs(low_bound[i]-distance[j]))
+
+    return points[best_i]
+            
+
+
+
+
+
+                
+            
+                
+                
